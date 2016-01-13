@@ -1,0 +1,2 @@
+java -cp /home/15MEDO/wilmanm/hsqldb-2.3.3/hsqldb/lib/hsqldb.jar org.hsqldb.Server 
+
