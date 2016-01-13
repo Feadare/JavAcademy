@@ -5,6 +5,7 @@
 
 JavAcademy is a learning platform for programming. Users can complete exercises and tutorials to learn programming in Java. Exercises are compiled and immediatly evaluated by comparing them to tests in the database.
 Every user can add exercises and tests.
+
 2.6.2) System Requirements for JavAcademy
 
 Browser
@@ -23,7 +24,7 @@ Apache Tomcat 8.0
 
 2.6.3) Download JavAcademy
 
-You can download JavAcademy on Bitbucket.org. 
+You can download JavAcademy github: https://github.com/Feadare/JavAcademy 
 
 2.6.4) Extract JavAcademy 
 
