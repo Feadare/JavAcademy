@@ -32,6 +32,7 @@ Extract the respository into your respective Tomcat webapps folders.
 2.6.5) Initiliaze the database
 
 Start HSQLDB and initiliaze the database by using the SQL file within the project repository.
+
 2.6.6) Start your Tomcat server
 
 Start the server and open up the website. If everything worked, you should be able to see the index site. If there is a red error message, it means that the server is either not running or that the site couldn't connect with the database.
