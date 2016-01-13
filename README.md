@@ -20,12 +20,15 @@ HDD Space
 Server
 Apache Tomcat 8.0
 
+
 2.6.3) Download JavAcademy
 
 You can download JavAcademy on Bitbucket.org. 
+
 2.6.4) Extract JavAcademy 
 
 Extract the respository into your respective Tomcat webapps folders.
+
 2.6.5) Initiliaze the database
 
 Start HSQLDB and initiliaze the database by using the SQL file within the project repository.
