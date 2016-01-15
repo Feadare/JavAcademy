@@ -21,8 +21,8 @@ import java.util.logging.Logger;
 public class DbTools {
 
     /**
-     * Verbindung zu einer Datenbank aufbauen. Beim Auftreten von Fehlern
-     * erfolgt kein Ausloesen einer Exception. Es wird eine Fehlermeldung auf
+     * Verbindung zu einer Datenbank aufbauen <br> Beim Auftreten von Fehlern
+     * erfolgt kein Ausloesen einer Exception.<br> Es wird eine Fehlermeldung auf
      * die Konsole ausgegeben.
      *
      * @return Connection zur Datenbank oder null, wenn ein Fehler auftritt
@@ -103,8 +103,8 @@ public class DbTools {
         return "</table>\n";
     }
             /**
-     * Exportiert den gesamten Datenbankinhalt in eine .sql Datei. 
-     * <br> Standort: webapps/JavAcademy/javaacademydbbackup.sql
+     * Exportiert den gesamten Datenbankinhalt in eine .sql Datei(Standort: webapps/JavAcademy/javaacademydbbackup.sql). 
+     * <br> 
      *
      *
      * @param con Verbindung zur Datenbank die exportiert werden soll

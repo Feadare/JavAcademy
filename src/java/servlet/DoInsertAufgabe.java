@@ -21,8 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.hsqldb.result.Result;
 
 /**
- *
- * @author kiedrowski
+ * Servlet fuer das hinzufuegen einer neuen Aufgabe.
  */
 @WebServlet(name = "DoInsertAufgabe", urlPatterns = {"/DoInsertAufgabe.do"})
 public class DoInsertAufgabe extends HttpServlet {

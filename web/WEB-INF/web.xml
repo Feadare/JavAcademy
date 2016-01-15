@@ -41,10 +41,6 @@
         <url-pattern>/DoCheckUsername.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>doLogout</servlet-name>
-        <url-pattern>/doLogout.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>DoDbPassCheck</servlet-name>
         <url-pattern>/DoDbPassCheck.do</url-pattern>
     </servlet-mapping>
@@ -63,6 +59,11 @@
     <servlet-mapping>
         <servlet-name>DoTestCompiler</servlet-name>
         <url-pattern>/DoTestCompiler.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>doLogout</servlet-name>
+        <url-pattern>/JavAcademydoLogout.do</url-pattern>
+        <url-pattern>/doLogout.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

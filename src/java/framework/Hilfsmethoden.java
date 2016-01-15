@@ -11,8 +11,9 @@ import java.util.Locale;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
+
 /**
- *
+ * Verschiedene Hilfsmethoden für das Webinterface und den Compiler
  * @author wilmanm
  */
 public class Hilfsmethoden {
@@ -43,7 +44,12 @@ public class Hilfsmethoden {
         tabelle += "</table>";
         return tabelle;
     }
-
+ /**
+     * Ausgabe aller Fehlermeldungen in einer HTML Tabelle und eine Tabelle mit Tipps <br>
+     * 
+     * @param diagnostics Die diagnostics Datei des JavaFileObjects
+     * @return HTML Tabelle
+     */
     public static String getDiagnosticsTabelle(List<Diagnostic<? extends JavaFileObject>> diagnostics) {
         String tabelle = "<table class=\"table\" border='1' ";
         tabelle += "<tr><th>Fehler beim Compilieren: </th></tr>";
@@ -83,7 +89,7 @@ public class Hilfsmethoden {
     /**
      * Hilfetext zu haeufigen Compilerfehlermeldungen und Bedeutungen
      *
-     * @return
+     * @return HTML Tabelle mit häufigen Fehlern
      */
     public static String helpCompiler() {
         String tabelle = "<table class=\"table\" border='1'>";
@@ -115,6 +121,10 @@ public class Hilfsmethoden {
         return tabelle;
     }
 
+    /**
+     * Gibt eine Hilfetabelle von ueblichen Datentypen
+     * @return HTML Tabelle
+     */
     public static String helpDatentypen() {
         return "<table class=\"table\" border='1'>\n"
                 + "  <tr>\n"
@@ -132,6 +142,10 @@ public class Hilfsmethoden {
                 + "</table>";
     }
 
+    /**
+     * Gibt eine Hilfetabelle mit einer Uebersicht von ueblichen Schleifen
+     * @return HTML Tabelle
+     */
     public static String helpSchleifen() {
         return "<table class=\"table\" border='1'>\n"
                 + "  <tr>\n"
@@ -149,6 +163,10 @@ public class Hilfsmethoden {
                 + "</table>";
     }
 
+    /**
+     * Gibt eine Beispieltabelle für den Hilfetext für Objekte
+     * @return HTML Tabelle
+     */
     public static String helpObjektePerson() {
         return "<table class=\"table\" border='1'>\n"
                 + "  <tr>\n"
@@ -168,11 +186,20 @@ public class Hilfsmethoden {
                 + "</table>";
     }
 
+    /**
+     * Falls der User nicht eingeloggt ist (keine username in der Session) wird eine Warnung ausgegeben
+     * @return eine HTML Warnung
+     */
     public static String warningNotLoggedIn() {
         return "<div class=\"alert alert-danger\" role=\"alert\">Nicht eingeloggt! Keine EXP und Sicherung der Eingaben!</div>";
 
     }
 
+    /**
+     * Erzeugt den HTML-Code für die Progressbar<br>
+     * @param exp Erfahrungspunkte
+     * @return HTML Progressbar mit EXP
+     */
     public static String progressbar(int exp) {
         return "\n<div class=\"progress\">\n"
                 + "                <div class=\"progress-bar progress-bar-success\" role=\"progressbar\" aria-valuenow=\"" + exp + "\"\n"

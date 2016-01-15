@@ -21,8 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
- * @author feadare
+ * Servlet dass die Eingabe des Users an die EingabenCompiler Klasse weiterleitet <br>
+ * und anschließend das ausgewertete Ergebnis zurückgibt.
+ * 
  */
 public class DoCompiler extends HttpServlet {
 

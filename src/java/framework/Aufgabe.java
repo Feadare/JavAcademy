@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *
+ * Verschiedene Methoden die im Zusammenhang mit den Aufgaben stehen
  * @author wilmanm
  */
 public class Aufgabe {
@@ -43,7 +43,7 @@ public class Aufgabe {
      *
      * @param stmt SQL-Statement
      * @param a_ID AufgabenID
-     * @return
+     * @return den Autor einer Aufgabe
      */
     public static String getAutor(Statement stmt, int a_ID) {
         String autor = "";
@@ -66,7 +66,7 @@ public class Aufgabe {
      *
      * @param stmt SQL-Statement
      * @param a_ID AufgabenID
-     * @return
+     * @return das Mindestlevel als int
      */
     public static int getMinLevel(Statement stmt, int a_ID) {
         int minLevel = 0;
@@ -91,7 +91,7 @@ public class Aufgabe {
      * @param stmt SQL-Statement
      * @param a_ID AufgabenID
      * @param u_ID UserID
-     * @return
+     * @return false, wenn nicht schon geloest
      */
     public static boolean getGeloest(Statement stmt, int a_ID, int u_ID) {
         String sql = "SELECT Geloest from Eingaben where AufgabenID = " + a_ID + "AND USERID = " + u_ID;

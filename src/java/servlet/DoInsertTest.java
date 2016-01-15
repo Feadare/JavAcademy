@@ -17,9 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet fuer die &Uuml;berpr&uuml;fung des Benutzernamen<br>
- * Hiermit wird sichergestellt dass der Username nicht belegt ist.
- *
+ * Servlet fuer das hinzufuegen eines neuen Tests.
  */
 public class DoInsertTest extends HttpServlet {
 

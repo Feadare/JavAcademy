@@ -26,16 +26,36 @@ import javax.tools.JavaFileObject;
 import javax.tools.ToolProvider;
 
 /**
- *
+ * Kompiliert eine Benutzer Eingabe und gleicht diese mit einem 
+ * <br> Datenbanken Ergebnis ab 
+ * <br> Erstellt eine Ergebnistabelle. <br>
  * @author kiedrowski
  */
 public class EingabenCompiler {
+
+    /**
+     * Gibt einen JavaCompiler zurück<br>
+     *
+     * @return compiler 
+     */
+
 
     public static JavaCompiler getCompiler() {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
         return compiler;
     }
+
+    /**
+     * Erstellt Writer welche die Methode generieren<br>
+     *
+     * @param eingabe Benutzer Eingabe
+     * @param datentyp Datentyp der Methode
+     * @param methodenname Namen der Methode
+     * @param parameter Parameter der Mehtode
+     *
+     * @return gibt die Mehtode als String zurück
+     */
 
     public static String methodenAufbau(String eingabe, String datentyp, String methodenname, String parameter) {
 
@@ -51,6 +71,17 @@ public class EingabenCompiler {
         return eingabe;
     }
 
+     /**
+     * Ruft die Methode methodenAufbau auf und erstellt eine JavaFileObjekt aus dieser<br>
+     *
+     * @param eingabe Benutzer Eingabe
+     * @param datentyp Datentyp der Methode
+     * @param methodenname Namen der Methode
+     * @param parameter Parameter der Mehtode
+     *
+     * @return file 
+     */
+
     public static JavaFileObject getJavaFileObject(String eingabe, String datentyp, String methodenname, String parameter) {
 
         String methodenEingabe = methodenAufbau(eingabe, datentyp, methodenname, parameter);
@@ -58,15 +89,40 @@ public class EingabenCompiler {
         return file;
     }
 
+   /**
+     * Erstellt eine Diagnostics aus einem JavaFileObject<br>
+     *
+     * @return diagnostics
+     */
+
     public static DiagnosticCollector<JavaFileObject> getDiagnosticsWert() {
         DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
         return diagnostics;
     }
+   /**
+     * Gibt eine compilationUnits zurück <br>
+     *
+     * @param file	JavaFileObject 
+     *
+     * @return gibt die Mehtode als String zurück
+     */
 
     public static Iterable<? extends JavaFileObject> getCompilationEinheit(JavaFileObject file) {
         Iterable<? extends JavaFileObject> compilationUnits = Arrays.asList(file);
         return compilationUnits;
     }
+    /**
+     * Ruft die diverse Methoden auf um einen task auszuführen.<br>
+     * der task wertet aus ob das kompilieren erfolgreich war.<br>
+     *
+     * @param eingabe Benutzer Eingabe
+     * @param datentyp Datentyp der Methode
+     * @param methodenname Namen der Methode
+     * @param parameter Parameter der Mehtode
+     * @param id AufgabenID
+     *
+     * @return ergebnis Gibt eine Tabelle zurück 
+     */
 
     public static ArrayList<AbgeschlossenerTest> getErgebnis(String eingabe, String datentyp, String methodenname, String parameter, int id) {
 
@@ -88,6 +144,15 @@ public class EingabenCompiler {
         }
         return ergebnis;
     }
+    /**
+     * Erstellt eine Method welche definiert und anschließend aufgerufen wird.<br>
+     * Fragt ob der Test ein Array ist oder nicht.Ein Thread fängt Endlosschleifen ab.<br>
+     *
+     * @param methodenname Namen der Methode
+     * @param id AufgabenID
+     *
+     * @return resultListe Gibt eine ErgebnisTabelle zurück.
+     */
 
 
     public static ArrayList<AbgeschlossenerTest> successMethode(String methodenname, int id) {
@@ -172,6 +237,14 @@ public class EingabenCompiler {
         return resultListe;
     }
 
+   /**
+     * Ruft die Diagnostics auf und fügt dieser in die resultListe <br>
+     *
+     * @param dias Diagnostics
+     *
+     * @return resultListe Gibt eine ErgebnisTabelle zurück.
+     */
+
     public static ArrayList<AbgeschlossenerTest> failMethode(List<Diagnostic<? extends JavaFileObject>> dias) {
         ArrayList<AbgeschlossenerTest> resultListe = new ArrayList();
         AbgeschlossenerTest diaTest = new AbgeschlossenerTest("", "", false);
@@ -180,6 +253,12 @@ public class EingabenCompiler {
         resultListe.add(diaTest);
         return resultListe;
     }
+
+    /**
+     * Gibt eine URLClassloader zurück<br>
+     *
+     * @return classLoader Gibt eine neue Instanze zurück.
+     */
     public static URLClassLoader getKlassenLoader() {
         URLClassLoader classLoader = null;
         try {
@@ -189,6 +268,14 @@ public class EingabenCompiler {
         }
         return classLoader;
     }
+    /**
+     * Gibt eine Methode mit dem Namen methode zurück.<br>
+     * Ruft weitere Methoden auf um eine Methode zu deklarieren.<br>
+     *
+     * @param methodenname Diagnostics
+     *
+     * @return methode Ist eine Methode.
+     */
 
     public static Method getMethode(String methodenname) {
         Method methode = null;
@@ -201,6 +288,12 @@ public class EingabenCompiler {
         }
         return methode;
     }
+   /**
+     * Gibt eine Klasse mit dem Namen klasse zurück.<br>
+     * Ruft die Methode getKlassenLoader() auf .<br>
+     *
+     * @return klasse Ist eine Klasse.
+     */
 
     public static Class getKlasse() {
         Class klasse = null;
@@ -211,6 +304,12 @@ public class EingabenCompiler {
         }
         return klasse;
     }
+     /**
+     * Gibt eine Objekt mit dem Namen testobj zurück.<br>
+     * Ruft die Methode getKlasse().newInstance() auf .<br>
+     *
+     * @return testobj 
+     */
 
     public static Object getObject() {
         Object testobj = null;

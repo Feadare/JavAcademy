@@ -1,7 +1,7 @@
-<li><a href="profile.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Mein Profil</a></li>
+<li><a href="/JavAcademy/profile.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Mein Profil</a></li>
 </ul>
 <div>
-    <form class="navbar-form navbar-right" role="Ausloggen" action="doLogout.do" method="POST">
+    <form class="navbar-form navbar-right" role="Ausloggen" action="/JavAcademy/logout.jsp" method="POST">
         <div class="form-group">
             <div>
             <%=session.getAttribute("username")%> / Level: <%=session.getAttribute("level")%>

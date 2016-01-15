@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet fuer einen Logout-Button
  * 
- * @author JavAcademy
  */
 public class doLogout extends HttpServlet {
 
@@ -32,7 +31,7 @@ public class doLogout extends HttpServlet {
        
             HttpSession session = request.getSession();
             session.invalidate();
-            RequestDispatcher rd = request.getRequestDispatcher("logout.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/JavAcademy/logout.jsp");
             rd.forward(request, response);
 
         }

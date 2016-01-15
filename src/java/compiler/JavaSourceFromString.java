@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package compiler;
 
 import java.net.URI;
@@ -10,7 +6,8 @@ import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
 
 /**
- *
+ * Ersetzt '.' mit '/' <br>
+ * Im Compiler wird ein JavaSourceFromString Object benötigt
  * @author wilmanm
  */
 public class JavaSourceFromString extends SimpleJavaFileObject {

@@ -39,7 +39,7 @@
                 %>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="top10.jsp">Top10</a></li>
+                <li><a href="/JavAcademy/top10.jsp">Top10</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

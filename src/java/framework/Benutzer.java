@@ -63,8 +63,8 @@ public class Benutzer {
     /**
      * Gibt den Hashcode des Passworts zurueck fuer einen User
      *
-     * @param user
-     * @param con
+     * @param user Der Name des Users
+     * @param con Connection zur Datenbank
      * @return Passwort in gehashter Form
      */
     public static int getPassword(String user, Connection con) {
@@ -248,8 +248,8 @@ public class Benutzer {
      * Fuer das Levelsystem<br>
      * Gibt die Erfahrungspunkte(EXP) eines Users zurueck.
      *
-     * @param stmt
-     * @param u_ID
+     * @param stmt Das Statement dass fuer die Query benutzt wird
+     * @param u_ID Die User ID
      * @return Aktuelle Exp
      */
     public static int getUserExp(Statement stmt, int u_ID) {

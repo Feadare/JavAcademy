@@ -114,12 +114,13 @@ public class InBetween {
     /**
      * Parsed ein Object aus der Datenbank zum richtigen Datentyp
      *
-     * #
+     *
      *
      * @param stmt SQL-Statement
      * @param id AufgabenID
      * @param typ Datentyp
      * @param testid ID des Tests
+     * @param paraname Name des Parameters
      * @param i Index im Testwerte Array
      * @return Object mit dem korrekten Datentyp
      */
@@ -129,15 +130,14 @@ public class InBetween {
             if (typ.equals("String")) {
                 typ = "VARCHAR(200)";
             }
-            String sql = "SELECT  CAST (WERT AS " + typ + ") AS pwert,ROW_NUMBER() OVER() rn  FROM testparam WHERE aufgabenID = " + id + " AND testid = " + testid+" AND paraname =  '"+paraname+"'" ;
+            String sql = "SELECT  CAST (WERT AS " + typ + ") AS pwert,ROW_NUMBER() OVER() rn  FROM testparam WHERE aufgabenID = " + id + " AND testid = " + testid + " AND paraname =  '" + paraname + "'";
 
             ResultSet rs;
             int j = 0;
             try {
                 rs = stmt.executeQuery(sql);
-                    rs.next();
-                    j++;
-                
+                rs.next();
+                j++;
 
                 wert = rs.getObject(1);
 
@@ -171,7 +171,7 @@ public class InBetween {
                 }
 
             } catch (SQLException ex) {
-                
+
             }
 
         }
@@ -254,7 +254,7 @@ public class InBetween {
      * Liest alle Parameter zu einer Aufgabe aus und gibt sie in einer ArrayList
      * aus
      *
-     * @see Framework.Parameter
+     * @see framework.Parameter
      * @param stmt SQL-Statement
      * @param id AufgabenID
      * @return ArrayList mit Parametern
@@ -357,7 +357,6 @@ public class InBetween {
         return top10;
     }
 
-  
     /**
      * Holt sich die Profildaten<br>
      * (UserID,Benutzername,Email,Gruppe,Level,Rangname) aus der Datenbank<br>
@@ -390,7 +389,7 @@ public class InBetween {
     }
 
     /**
-     * Gibt den Nuternamen fuer eine ID zurueck
+     * Gibt den Nutzernamen fuer eine ID zurueck
      *
      * @param stmt SQL-Statement
      * @param id UserID
@@ -560,7 +559,7 @@ public class InBetween {
      * @param aufList aufgabenliste
      * @param aufIDListe aufgabenIDliste
      * @param stmt SQL-Statement
-     * @return
+     * @return HTML code button
      */
     public static String aufgabelisteAusgabe(ArrayList aufList, ArrayList aufIDListe, Statement stmt) {
 
@@ -591,7 +590,7 @@ public class InBetween {
                 + "        </div>";
     }
 
-      /**
+    /**
      * Speichert die Javacode-Eingabe in der Datenbank<br>
      * Die SQL-Anweisung wird universell, je nachdem ob UPDATE oder INSERT
      * gebraucht wird, generiert<br>
@@ -617,10 +616,21 @@ public class InBetween {
         }
     }
 
+    /**
+     * Aktualisiert in der Datenbank die Eingabe für die Aufgabe<br>
+     * Je nachdem ob alles Erfolgreich ist wird GELOEST auf true/false gesetzt
+     * und Erfahrungspunkte vergeben
+     *
+     * @param eingabe Javacode vom Benutzer
+     * @param u_ID BenutzerID
+     * @param a_ID AufgabenID
+     * @param stmt SQl-Statement
+     * @param testSucess true falls der test erfolgreich war
+     */
     public static void saveCodeUpdate(String eingabe, int u_ID, int a_ID, Statement stmt, boolean testSucess) {
         String sql;
         String sql2;
-        
+
         sql = "update EINGABEN "
                 + "SET TEXT = '" + eingabe + "'"
                 + " WHERE USERID = " + u_ID
@@ -637,7 +647,7 @@ public class InBetween {
                     + "WHERE USERID = " + u_ID
                     + " AND AUFGABENID = " + a_ID + ";";
         }
-        
+
         try {
             stmt.execute(sql);
             stmt.executeQuery(sql2);
@@ -902,6 +912,8 @@ public class InBetween {
      * @param aufgabenId AufgabenID
      * @param newWert neuer Wert zum überschreiben
      * @param parameter gibt an welcher Wert neu gesetzt werden soll
+     * @param typ gibt den Datentyp an
+     * @param testId gibt die Test ID an
      * @return true wenn es nicht Fehlgeschlagen ist
      */
     public static boolean updateTestparameter(Statement stmt, int aufgabenId, int testId, String newWert, String parameter, String typ) {

@@ -25,8 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
- * @author kiedrowski
+ * Ist das Compiler Servlet fuer das pruefen eines Tests auf der neuen Test Seite.
  */
 public class DoTestCompiler extends HttpServlet {
 

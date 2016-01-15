@@ -11,10 +11,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <%         
+            response.setContentType("text/html;charset=UTF-8");
+            session.invalidate();
+        %>
     </head>
     <jsp:include page="navbar.jsp"></jsp:include>
-    
-    
+
+
     <body>
         <div class="alert alert-info" role="farewell">'Sch&uuml;ss! Bis zum n&auml;chsten mal!</div>
     </body>
