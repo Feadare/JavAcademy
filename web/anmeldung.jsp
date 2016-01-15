@@ -4,6 +4,7 @@
     Author     : feadare
 --%>
 
+<%@page import="framework.Hilfsmethoden"%>
 <%@page import="SQL.DbTools"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.Connection"%>
@@ -14,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Erfolgreiche Anmeldung!</title>
+        <title>Anmeldung!</title>
         <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
 
     </head>
@@ -22,14 +23,24 @@
         String konsole = "";
         String username = request.getParameter("login");
         String passwort = request.getParameter("password");
+        
+            Connection con = DbTools.connect();
+            Statement stmt = con.createStatement();
+        
 
-        Connection con = DbTools.connect();
         if (Benutzer.checkPassword(username, passwort.toCharArray(), con)) {
             konsole = "<div class=\"alert alert-success\" role=\"alert\"> "
                     + "Erfolgreich eingeloggt!</div>";
+            
+            int u_ID = Benutzer.getIDbyName(username, con);
+            int exp = Benutzer.getUserExp(stmt, u_ID);
+            String progress = Hilfsmethoden.progressbar(exp);
+            session.setAttribute("ID",u_ID);
             session.setAttribute("username", username);
             session.setAttribute("eingeloggt", true);
-            session.setAttribute("ID", Benutzer.getIDbyName(username, con));
+            session.setAttribute("exp", exp);
+            session.setAttribute("level", Benutzer.getUserLevel(stmt, u_ID));
+            session.setAttribute("progress", progress);
         } else {
             konsole = "<div class=\"alert alert-danger\" role=\"alert\">Login fehlgeschlagen"
                     + "Username oder Passwort falsch?" + "</div>";
