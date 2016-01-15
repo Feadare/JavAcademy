@@ -95,11 +95,13 @@ FOREIGN KEY (AufgabenID) REFERENCES Aufgaben(ID)
 );
 
 
-INSERT INTO user VALUES ('0', 'admin', '-2011031861', 'keine@lust.de','admin'); 
+INSERT INTO user VALUES ('0', 'admin', '-529743353', 'feadare@rbb.do.nw.schule.de','admin'); 
 
 INSERT INTO user VALUES ('1', 'feaday', '-34591757', 'yoshi67@hotmail.de', 'developer');
 
 INSERT INTO user VALUES ('2', 'taxim11', '-34591757', 'duplo23@yandex.ru', 'schueler');
+
+INSERT INTO Rang VALUES ('0', 'Admi(n)ral');
 
 INSERT INTO Rang VALUES ('1', 'Neuling');
 
@@ -161,7 +163,7 @@ INSERT INTO Rang VALUES ('29', 'Erz-Engel des Programierens');
 
 INSERT INTO Rang VALUES ('30', 'Programmier Gottheit');
 
-INSERT INTO userlevel VALUES ('0', '30', '0');
+INSERT INTO userlevel VALUES ('0', '0', '0');
 
 INSERT INTO userlevel VALUES ('1', '20', '20');
 
@@ -186,95 +188,4 @@ INSERT INTO Kategorien VALUES ('8', 'Felder');
 INSERT INTO Kategorien VALUES ('9', 'Fortgeschrittene');
 
 INSERT INTO Kategorien VALUES ('10', 'Andere');
-
-INSERT INTO Aufgaben VALUES ('1', 'Gegeben sind String a und String b.
-Geben Sie die einen String "abba" zurück', '1', 'Grundkurs', 'gibAbba',
-'String', '1', '5'); 
-
-INSERT INTO Eingaben VALUES ('1', '1', 'return a+b;', 'false');
-
-INSERT INTO Eingaben VALUES ('1', '2', 'return a+b+b+a;', 'true');
-
-
-INSERT INTO MethodenParameter VALUES ('1', 'a', 'String');
-
-INSERT INTO MethodenParameter VALUES ('1', 'b', 'String');
-
-INSERT INTO Tests VALUES ('1', '1', 'CoolKewlKewlCool', '-956696976');
-
-INSERT INTO TestParam VALUES ('1', '1', 'a', 'String', 'Cool');
-
-INSERT INTO TestParam VALUES ('1', '1', 'b', 'String', 'Kewl');
-
-INSERT INTO Tests VALUES ('1', '2', 'KekLolLolKek', '34301888');
-
-INSERT INTO TestParam VALUES ('1', '2', 'a', 'String', 'Kek');
-
-INSERT INTO TestParam VALUES ('1', '2', 'b', 'String', 'Lol');
-
-INSERT INTO Aufgaben VALUES ('2', 'Gegeben sind drei Werte Integer a, Integer b, Integer c.
-Addieren Sie jeden Wert mit dem nächstliegendem Wert (a+b, b+c, c+a) und setzen Sie diese in einen Array und geben diesen zurück.', '2', 'Feaday', 'additionsArray',
-'Integer[]', '2', '20');
-
-INSERT INTO MethodenParameter VALUES ('2', 'a', 'Integer');
-
-INSERT INTO MethodenParameter VALUES ('2', 'b', 'Integer');
-
-INSERT INTO MethodenParameter VALUES ('2', 'c', 'Integer');
-
-INSERT INTO Tests VALUES ('2', '1', '[3, 5, 4]', '32833');
-
-INSERT INTO TestParam VALUES ('2', '1', 'a', 'Integer', '1');
-
-INSERT INTO TestParam VALUES ('2', '1', 'b', 'Integer', '2');
-
-INSERT INTO TestParam VALUES ('2', '1', 'c', 'Integer', '3');
-
-
-
-INSERT INTO Aufgaben VALUES ('3', 'Gegeben sind Integer a und Integer b
-Multipliziere die beiden und teile das Ergebnis druch -3.', '3', 'Mathebuch', 'basicMath',
-'Integer', '3', '10') 
-
-INSERT INTO MethodenParameter VALUES ('3', 'a', 'Integer');
-
-INSERT INTO MethodenParameter VALUES ('3', 'b', 'Integer');
-
-INSERT INTO Tests VALUES ('3', '1', '-2', '3');
-
-INSERT INTO TestParam VALUES ('3', '1', 'a', 'Integer', '2');
-
-INSERT INTO TestParam VALUES ('3', '1', 'b', 'Integer', '3');
-
-
-INSERT INTO Aufgaben VALUES ('4', 'Gegeben sind sechs Werte Integer a, b, c, d, e, f.
-Erstellen Sie einen zweidimensionalen Array mit den Arrays {a-b, b-c, c-a} und {d-e, e-f, g-d} und geben Sie diesen zurück.', '2', 'Feaday', 'subTraktionsFeld',
-'Integer[][]', '4', '100');
-
-INSERT INTO MethodenParameter VALUES ('4', 'a', 'Integer');
-
-INSERT INTO MethodenParameter VALUES ('4', 'b', 'Integer');
-
-INSERT INTO MethodenParameter VALUES ('4', 'c', 'Integer');
-
-INSERT INTO MethodenParameter VALUES ('4', 'd', 'Integer');
-
-INSERT INTO MethodenParameter VALUES ('4', 'e', 'Integer');
-
-INSERT INTO MethodenParameter VALUES ('4', 'f', 'Integer');
-
-INSERT INTO Tests VALUES ('4', '1', '[[-1, -1, 2], [-1, -1, 2]]', '922593');
-
-INSERT INTO TestParam VALUES ('4', '1', 'a', 'Integer', '1');
-
-INSERT INTO TestParam VALUES ('4', '1', 'b', 'Integer', '2');
-
-INSERT INTO TestParam VALUES ('4', '1', 'c', 'Integer', '3');
-
-INSERT INTO TestParam VALUES ('4', '1', 'd', 'Integer', '4');
-
-INSERT INTO TestParam VALUES ('4', '1', 'e', 'Integer', '5');
-
-INSERT INTO TestParam VALUES ('4', '1', 'f', 'Integer', '6');
-
 

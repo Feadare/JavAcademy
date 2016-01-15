@@ -19,8 +19,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
@@ -91,7 +89,6 @@ public class EingabenCompiler {
         return ergebnis;
     }
 
-    //@Timeout
 
     public static ArrayList<AbgeschlossenerTest> successMethode(String methodenname, int id) {
         ArrayList<AbgeschlossenerTest> resultListe = new ArrayList();
@@ -121,7 +118,7 @@ public class EingabenCompiler {
             for (Test testCase1 : testListe) {
                 boolean complete = false;
                 String result = "";
-                Thread kek = new Thread(new Runnable() {
+                Thread timeoutThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -136,9 +133,9 @@ public class EingabenCompiler {
                     }
                 });
 
-                kek.start();
+                timeoutThread.start();
                 try {
-                    kek.join(2200);
+                    timeoutThread.join(2200);
                 } catch (InterruptedException ex) {
                     System.out.println("InterruptedException "+ ex);
                 }
@@ -151,8 +148,8 @@ public class EingabenCompiler {
                 }
 
                 String expResult = (String) testCase1.getExpResult();
-                expResult = expResult.replaceAll("\\s+", "");
-                result = result.replaceAll("\\s+", "");
+//                expResult = expResult.replaceAll("\\s+", "");
+//                result = result.replaceAll("\\s+", "");
                 if (result.hashCode() == expResult.hashCode()) {
                     complete = true;
                 }
@@ -183,8 +180,6 @@ public class EingabenCompiler {
         resultListe.add(diaTest);
         return resultListe;
     }
-
-
     public static URLClassLoader getKlassenLoader() {
         URLClassLoader classLoader = null;
         try {
@@ -229,8 +224,4 @@ public class EingabenCompiler {
         return testobj;
     }
 
-    public static boolean machtAllesZuHashDudeCodeLoL(int eingabeHashWert, int hashWert) {
-
-        return eingabeHashWert == hashWert;
-    }
 }

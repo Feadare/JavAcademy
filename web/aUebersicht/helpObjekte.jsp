@@ -94,6 +94,7 @@
             <div class="col-md-6">
                 So.. Schauen wir uns dochmal an wie solche Objekte aussehen können.<br>
                 <img src="../bilder/PersonObjekte.PNG" alt=""/><br><br>
+                &COPY;BlueJ<br>
                 Yeah! Wir haben soeben drei einzigartige Personen programmiert.<br>
                 Aber was ist mit Methoden?<br>
                 Natürlich kann jedes Objekt auch die Methoden seiner Klasse benutzen.<br>

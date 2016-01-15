@@ -83,18 +83,29 @@ public class Aufgabe {
         return minLevel;
     }
 
-    public static String getHinweis(Statement stmt, int a_ID) {
-        String sql = "SELECT Hinweis FROM Hinweise WHERE AufgabenID =" + a_ID + ";";
-        String hinweis = "";
-        
+    /**
+     * Gibt zurueck ob die Aufgabe schon erfolgreich geloest wurde<br>
+     * Damit wird verhindert dass man fuer eine geloeste Aufgabe nochmal
+     * Erfahrung bekommt
+     *
+     * @param stmt SQL-Statement
+     * @param a_ID AufgabenID
+     * @param u_ID UserID
+     * @return
+     */
+    public static boolean getGeloest(Statement stmt, int a_ID, int u_ID) {
+        String sql = "SELECT Geloest from Eingaben where AufgabenID = " + a_ID + "AND USERID = " + u_ID;
+        boolean geloest = true; // Im Zweifel keine EXP geben
+
         try {
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
-                hinweis = rs.getString(1);
+                geloest = rs.getBoolean(1);
             }
         } catch (SQLException ex) {
             System.err.println("FEHLER: " + ex);
+            return true;
         }
-        return hinweis;
+        return geloest;
     }
 }

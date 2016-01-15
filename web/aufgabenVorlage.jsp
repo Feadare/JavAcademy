@@ -21,7 +21,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>AufgabenVorlage</title>
+        <title>Aufgaben Vorlage</title>
         <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     </head>
     <style type="text/css">
@@ -55,6 +55,7 @@
         }
 
     </style>
+
     <%
         Connection con = DbTools.connect();
         Statement stmt = con.createStatement();
@@ -81,6 +82,10 @@
         // Object[] arrErgebnis = null;
         Object uErgebnis = "";
 
+        session.setAttribute("id", id);
+
+        String autor = InBetween.getAutor(stmt, id);
+
         String aufgabenbeschreibung = InBetween.getAufgabenbeschreibung(stmt, id);
 
         String methodenname = InBetween.getMethodennamen(stmt, id);
@@ -101,42 +106,41 @@
                 code = "";
             }
         }
-
-        String hinweis = Aufgabe.getHinweis(stmt, id);
-
-    //if(array){
-        //   if(twodiarray)
-        //  {
-        //     arr2D2Ergebnis = (Object[][]) request.getAttribute("arr2D2Ergebnis");
-        // }
-        // else{
-        //     arrErgebnis = (Object[]) request.getAttribute("arrErgebnis");
-        //  }
-        //  }
-        // else{
-        //    aErgebnis = (Object) request.getAttribute("aErgebnis");
-        // }
-        // uErgebnis = Arrays.deepToString(arr2D2Ergebnis) + Arrays.toString(arrErgebnis) + aErgebnis;
-        uErgebnis = (Object) request.getAttribute("uErgebnis");
-
-
-    %>
-    <script>
-        function spoil() {
-            document.getElementById("tipp").innerHTML = "<%=hinweis%>";
+        if (username == null){
+            username = "";
         }
-    </script>
+        String autorButton = "";
+        String removeButton = "";
+        int anzahlTests = InBetween.getAnzahlTests(stmt, id);
+        String anzahlTestText = "Es sind " + anzahlTests + " vorhanden!";
 
+        if (anzahlTests == 1) {
+            anzahlTestText = "Es ist 1 Test vorhanden!";
+        }
+
+        if (autor.equals(username) || autor == username || username.equals("admin")) {
+            autorButton = "" + anzahlTestText + " "
+                    + "  <form action=\"neuerTest.jsp\" method=\"POST\">  \n"
+                    + " <input type=\"hidden\" name=\"methodenname\" value=" + methodenname + "> \n"
+                    + " <input type=\"submit\" value=\"neuer Test\" /> \n"
+                    + " </form> \n";
+            removeButton = "  <form action=\"aufgabegeloescht.jsp\" method=\"POST\">  \n"
+                    + " <input type=\"hidden\" name=\"aufgabenID\" value=" + id + "> \n"
+                    + " <input type=\"submit\" value=\"Aufgabe löschen\" /> \n"
+                    + " </form> \n";
+
+        } else {
+            autorButton = "";
+
+        }
+        uErgebnis = (Object) request.getAttribute("uErgebnis");
+    %>
     <body>
         <jsp:include page="navbar.jsp"></jsp:include>
 
-            <div class="col-md-3">
-
-            </div>
-
-
-
+            <div class="col-md-3"> </div>
             <div class="col-md-5" id="aufgabenBeschreibung">
+            <%=autorButton%> <%=removeButton%> <br>
 
             <%=aufgabenbeschreibung%> <br><br>
 
@@ -175,12 +179,11 @@
                     }
                 </script>
                 <input type="submit" value="Los" /> 
-            </form>   
+            </form>     
             <br>
 
         </div>
 
         <div class="col-md-4"> <%=uErgebnis%> </div>
-        <button onclick="myFunction()">Hilfe? Tipp</button>
     </body>
 </html>

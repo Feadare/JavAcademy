@@ -29,31 +29,31 @@
             document.frm2.submit();
         }
     </script>
+    <style type="text/css">
+        table { page-break-inside:auto }
+        tr    { page-break-inside: auto; page-break-after:auto }
+        td    { page-break-inside: auto; page-break-after:auto }
+        td    { font-size: 1em;}
+        textarea {resize: none}
+    </style>
 </head>
 <%
-    int kategorieID = 2;
     Connection con = DbTools.connect();
     Statement stmt = con.createStatement();
-
-    ArrayList aufgabenliste = InBetween.aufgabenliste(kategorieID, stmt);
-    ArrayList aufgabenIDliste = InBetween.aufgabenIDliste(kategorieID, stmt);
-    String aufgabenuebersicht = "";
-    aufgabenuebersicht += InBetween.aufgabenlisteHead();
-    aufgabenuebersicht += InBetween.aufgabelisteAusgabe(aufgabenliste, aufgabenIDliste);
-    aufgabenuebersicht += InBetween.aufgabenlisteFoot();
-
     Object uErgebnis = null;
 
-    //String aufgabenbeschreibung = framework.InBetween.getAufgabenbeschreibung(stmt,id);
-    //String benutzerAngemeldet = framework.InBetween.getLoginname();
-    //String aufgabenbeschreibung = "Hey! In dieser Aufgabe muss du deinen Namen ausgeben :)"
-    //        + "<br>Hey! In dieser Aufgabe muss du deinen Namen ausgeben :)"
-    //        + "<br>nHey! In dieser Aufgabe muss du deinen Namen ausgeben :)";
     String methodennamen = request.getParameter("methodenname");
 
-    int aufgabenid = aufgabenid = InBetween.getAufgabenId(stmt, methodennamen);
-//Integer.parseInt((String) request.getParameter("aufgabenid"));
+    int aufgabenid = InBetween.getAufgabenId(stmt, methodennamen);
+    int testid = 0;
+    testid = InBetween.getTestId(stmt, aufgabenid);
+    boolean dummyTest = InBetween.getTestDummy(stmt, aufgabenid);
+    if(!dummyTest)
+    {
+        testid = testid +1;
+    }
 
+    int anzahlParameter = InBetween.getTestParameterAnzahl(stmt, aufgabenid);
     String aufgabenbeschreibung = InBetween.getAufgabenbeschreibung(stmt, aufgabenid);
     String methodenname = InBetween.getMethodennamen(stmt, aufgabenid);
     String datentyp = InBetween.getDatentyp(stmt, aufgabenid);
@@ -77,63 +77,64 @@
     }
 
     uErgebnis = (Object) request.getAttribute("uErgebnis");
+    request.setAttribute("aufgabenid", aufgabenid);
 
+    // session.setAttribute("aufgabenid", String.valueOf(aufgabenid));
+    int anzahlTests = InBetween.getAnzahlTests(stmt, aufgabenid);
+    String anzahlTestText = "Es sind " + anzahlTests + " vorhanden!";
+
+    if (anzahlTests == 1) {
+        anzahlTestText = "Es ist 1 Test vorhanden!";
+    }
 
 %>
 <body>
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+    <jsp:include page="navbar.jsp"></jsp:include>
 
-                    <li class="active"><a href="index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home <span class="sr-only">(current)</span></a></li>
+        <div class="col-md-3">
 
+        </div>
 
-                    <li><a href="profile.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Mein Profil</a></li>
-                </ul>
-
-                <div>
-                    <form class="navbar-form navbar-right" role="Einloggen">
-                        <div class="form-group">
-                            <input type="text" name="login" class="form-control" placeholder="Login">
-                            <input type="text" name="password" class="form-control" placeholder="Password"/>
-                        </div>
-                        <button type="submit" class="btn btn-default">Login</button>
-                    </form>
-
-                </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="top10.jsp">Top10</a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-
-    <div class="col-md-3">
-
-    </div>
+        <div class="col-md-6" id="aufgabenBeschreibung">
+            <form action="DoInsertTest.do" method="POST">
+            <%=anzahlTestText%> <br>
+            Neue Test ID: <%=testid%>
 
 
-    <div class="col-md-6" id="aufgabenBeschreibung">
-        
-          <%=parameterUebersicht%>
-          <br><br>
-          <br><br>
+            <br><br>
+            <%=parameterUebersicht%>
+            <br><br>
 
+            <div class="input-group">
+                <label class="input-group-addon"> Erwartetes Ergebnis </label>
+                <input required type="text" class="form-control" id="appendedInput" name="result">
+                <span class="input-group-btn btn-group"> </span>
+            </div>
+            <br>
 
+            <input type="hidden" name="aufgabenid" value="<%=aufgabenid%>"> 
+            <input type="hidden" name="anzahlParameter" value="<%=anzahlParameter%>"> 
+            <input type="hidden" name="methodenname" value="<%=methodenname%>"> 
+            <input type="hidden" name="testid" value="<%=testid%>"> 
+
+            <input type="submit" value="Test speichern"/> 
+        </form>   
+
+        <br>
         <%=aufgabenid%> //  <%=aufgabenbeschreibung%> <br><br>
 
         public <%=datentyp%> <%=methodenname%>(<%=parameterString%>) {
 
-        <form action="DoCompiler.do" method="POST">
-            <textarea name="code" rows="10" cols="50"><%=code%></textarea>  <br> } <br>
+        <form action="DoTestCompiler.do" method="POST">
 
-            <input type="submit" value="Los" /> 
+            <textarea name="code" rows="10" cols="50"><%=code%></textarea>  <br> } <br>
+            <input type="hidden" name="methodenname" value="<%=methodenname%>"> 
+
+            <input type="submit" value="Test pr&uuml;fen" /> 
         </form>   
         <br>
-        Achtung: <%=uErgebnis%>
+        <div class="col-md-4"> <%=uErgebnis%> </div>
     </div>
 
 

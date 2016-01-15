@@ -5,13 +5,6 @@
  */
 package framework;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author kiedrowski
@@ -21,6 +14,10 @@ public class Parameter {
     private String parameter;
     private String datentyp;
     private Class klasse;
+
+    public Parameter(String parameter) {
+        this.parameter = parameter;
+    }
 
     public Parameter(String parameter, String datentyp) {
         this.parameter = parameter;
@@ -37,13 +34,12 @@ public class Parameter {
 
                     this.klasse = Class.forName("[[Ljava.lang." + datentyp + ";");
                 } catch (ClassNotFoundException ex2) {
-                   System.err.println(ex2);
+                    System.err.println(ex2);
                 }
             }
         }
 
     }
-
 
     public String getParameter() {
         return parameter;

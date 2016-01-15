@@ -167,4 +167,18 @@ public class Hilfsmethoden {
                 + "  </tr>\n"
                 + "</table>";
     }
+
+    public static String warningNotLoggedIn() {
+        return "<div class=\"alert alert-danger\" role=\"alert\">Nicht eingeloggt! Keine EXP und Sicherung der Eingaben!</div>";
+
+    }
+
+    public static String progressbar(int exp) {
+        return "\n<div class=\"progress\">\n"
+                + "                <div class=\"progress-bar progress-bar-success\" role=\"progressbar\" aria-valuenow=\"" + exp + "\"\n"
+                + "                     aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width:" + exp + "%\">\n"
+                + "                    " + exp + "/100\n"
+                + "                </div>\n"
+                + "            </div>";
+    }
 }

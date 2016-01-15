@@ -64,12 +64,12 @@
         </div>
 
         <div id="section3"> <!--Beispielklasse-->
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
                 <p>Wie schreibt man eine Klasse?</p>
                 <img src="../bilder/getting_started.png"/>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-1"></div>
         </div>
 
         <div id="section4"> <!--Goldene Regeln-->

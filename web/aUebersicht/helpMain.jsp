@@ -16,12 +16,8 @@
         <script src="../jquery/jquery-2.1.4.js"></script>
         <script src="../bootstrap/js/bootstrap.js"></script>
     </head>
-    <%
-
-    %>
     <!-- The navbar - The <a> elements are used to jump to a section in the scrollable area -->
-    <body data-spy="scroll" data-target=".navbar" data-offset="50">
-
+    <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -85,14 +81,17 @@
             <div class="col-md-3"></div>
         </div>
 
-        <div id="section41"> <!--THEMA 4-->
+        <div id="section412"> <!--THEMA 4-->
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <img src="../bilder/PersonCode.PNG" alt=""/><br>
                 Hier nochmal die Personen Klasse.<br>
 
                 Wir können jetzt, wie im letzten Thema angedeutet, beispielsweise drei Objekte erstellen.<br>
-                <img src="../bilder/PersonObjekte.PNG" alt=""/><br>
+                <img src="../bilder/PersonObjektRalph.png" alt=""/><br>
+                <img src="../bilder/PersonObjektWalter.png" alt=""/><br>
+                <img src="../bilder/PersonObjektKurt.png" alt=""/><br>
+                &COPY;BlueJ<br>
                 Ralph, Walter und Kurt.<br>
                 <br>
                 Wir können auch mehr Objekte erstellen und je nachdem welchen Konstruktor wir wählen die Attribute vergeben.<br>
@@ -111,7 +110,7 @@
             <div class="col-md-3"></div>
         </div>
 
-        <div id="section4"> <!--THEMA 4-->
+        <div id="section42"> <!--THEMA 4-->
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 Alles klar!<br>

@@ -33,18 +33,21 @@
                 <a class="list-group-item" href="aUebersicht/tippAnfang.jsp">Probleme? Nachschlagwerkzeug</a>
                 <a class="list-group-item" href="aUebersicht/helpObjekte.jsp">Hilfe zu: Objekten</a>
                 <a class="list-group-item" href="aUebersicht/helpMain.jsp">Hilfe zu: Startklasse/Mainklasse</a>
-
-
             </ul>
         </div>
-
-
         <div class="col-md-3" id="aufgaben">
             <ul class="list-group">
                 <a class="list-group-item" href="aUebersicht/tippAnfang.jsp">Tipps zu Anfang</a>
                 <a class="list-group-item" href="aUebersicht/basics.jsp">Basics</a>
+                <a class="list-group-item" href="aUebersicht/fallunterscheidungen.jsp">Fallunterscheidungen</a>
+                <a class="list-group-item" href="aUebersicht/schleifen.jsp">Schleifen</a>
                 <a class="list-group-item" href="aUebersicht/strings.jsp">String</a>
+                <a class="list-group-item" href="aUebersicht/logik.jsp">Logik</a>
+                <a class="list-group-item" href="aUebersicht/zahlen.jsp">Zahlen</a>
                 <a class="list-group-item" href="aUebersicht/arrays.jsp">Arrays</a>
+                <a class="list-group-item" href="aUebersicht/felder.jsp">Felder</a>
+                <a class="list-group-item" href="aUebersicht/fortgeschrittene.jsp">Fortgeschrittene</a>
+                <a class="list-group-item" href="aUebersicht/andere.jsp">Andere</a>
             </ul>
         </div>
 

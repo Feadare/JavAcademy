@@ -13,9 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Erzeugung von HTML-Konstrukten fuer den Dialog mit Datenbanken.
+ * Verschiedene Methoden welche Daten aus der Datenbank ausgeben oder formatieren 
+ * koennen, sowie eine Verbindung aufbauen oder abbrechen.
  *
- * @author origin: rla
+ * @author rla, JavAcademy
  */
 public class DbTools {
 
@@ -46,75 +47,12 @@ public class DbTools {
     }
 
     /**
-     * Liefert das Ergebnis einer Abfrage nach allen Attributen einer Tabelle
-     * fuer alle Zeilen die eine Suchanfrage erfuellen. Bei Fehlern wird eine
-     * Fehlermeldung an die Konsole ausgegeben und null zurueckgegeben.
-     *
-     * @param con
-     * @param table
-     * @param attribut
-     * @param value
-     * @return
-     */
-    public static ResultSet getResult(Connection con,
-            String table,
-            String attribut,
-            String value) {
-        String sql = "SELECT * FROM " + table + " WHERE " + attribut + " LIKE '" + value + "'";
-        ResultSet rs = null;
-        try (Statement stm = con.createStatement()) {
-            rs = stm.executeQuery(sql);
-        } catch (SQLException e) {
-            System.err.println("getResult: ");
-            System.err.println("SQL: " + sql);
-        }
-        return rs;
-    }
-
-    public static ResultSet getResultAll(Connection con, String table) {
-        String sql = "SELECT * FROM " + table;
-        ResultSet rs = null;
-        try (Statement stm = con.createStatement()) {
-            rs = stm.executeQuery(sql);
-        } catch (SQLException e) {
-            System.err.println("getResult: ");
-            System.err.println("SQL: " + sql);
-        }
-        return rs;
-    }
-
-    public static ResultSet getResult(Connection con,
-            String table,
-            String idName,
-            String[] ids) {
-        if (con == null || table == null || idName == null || ids == null || ids.length == 0) {
-            return null;
-        }
-
-        String sql = "SELECT * FROM " + table + " WHERE " + idName + " IN( ";
-        for (String id : ids) {
-            sql += id + ", ";
-        }
-        sql = sql.substring(0, sql.length() - 2);
-        sql += ")";
-
-        ResultSet rs = null;
-        try (Statement stm = con.createStatement()) {
-            rs = stm.executeQuery(sql);
-        } catch (SQLException e) {
-            System.err.println("getResult: ");
-            System.err.println("SQL: " + sql);
-        }
-        return rs;
-    }
-
-    /**
      * Erzeugt html-Tabellenzeilen mit den Werten der Attribute einer
      * Tabellenzeilen.
      *
      * @param rs SQL-ResultSet
      * @param args Feld fuer Zeichenketten mit variabler Laenge
-     * @return
+     * @return HTML-Reihen mit Inhalt des ResultSets
      */
     public static String htmlRows(ResultSet rs, String... args) {
         if (rs == null) {
@@ -136,30 +74,7 @@ public class DbTools {
         return table;
     }
 
-    public static String htmlRowsCheckText(ResultSet rs, String... args) {
-        if (rs == null) {
-            return "<tr><td>ResultSet = null</td></tr>\n";
-        }
-        String table = "";
-        try {
-            while (rs.next()) { // Alle Ergebniszeilen bearbeiten
-                table += "  <tr>";
-                for (int i = 0; i < args.length; i++) {
-                    String arg = args[i];
-                    String zelle = rs.getString(arg);
-                    if (i == 0) { //Checkbox
-                        table += "<td><input type='checkbox' name='Auswahl' value='" + zelle + "'/>";
-                    } else { //Attributanzeige
-                        table += "<td>" + zelle + "</td>";
-                    }
-                }
-                table += "<td><input type='text' name='Anzahl' value  = '0' size = '2' /></td></tr>\n";
-            }
-        } catch (SQLException e) {
-            table = " <tr><td>htmlRows: " + e + "</td></tr>\n";
-        }
-        return table;
-    }
+  
 
     /**
      * Erzeugt den Kopf einer HTML-Tabelle<br>
@@ -167,7 +82,7 @@ public class DbTools {
      *
      *
      * @param args Feld fuer Zeichenketten mit variabler Laenge
-     * @return
+     * @return HTML-Tabellenkopf
      */
     public static String htmlTableHead(String... args) {
         String table = "<table class=\"table\" border='1'>\n  <tr><b>";
@@ -176,11 +91,25 @@ public class DbTools {
         }
         return table + "</b></tr>\n";
     }
-
+    
+        /**
+     * Erzeugt den Kopf einer HTML-Tabelle<br>
+     * z.B htmlTableHead( "firstname","lastname")
+ 
+     * 
+     * @return HTML-Tabellenende
+     */
     public static String htmlTableFoot() {
         return "</table>\n";
     }
-
+            /**
+     * Exportiert den gesamten Datenbankinhalt in eine .sql Datei. 
+     * <br> Standort: webapps/JavAcademy/javaacademydbbackup.sql
+     *
+     *
+     * @param con Verbindung zur Datenbank die exportiert werden soll
+     * @return Gibt den Datenbankinhalt als String mit CREATE/DROP und INSERT Befehlen zurück
+     */
     public static String exportDb(Connection con) {
         String sqlBefehle = "DROP TABLE HINWEISE if exists;\n"
                 + "\n"
@@ -282,7 +211,9 @@ public class DbTools {
                 + ");\n"
                 + "\n";
         sqlBefehle += exportUserTabelle(con) + "\n";
-        sqlBefehle += "INSERT INTO Rang VALUES ('1', 'Neuling');\n"
+        sqlBefehle += "INSERT INTO Rang VALUES ('0', 'Admi(n)ral');\n" 
+                
+                + "INSERT INTO Rang VALUES ('1', 'Neuling');\n"
                 + "\n"
                 + "INSERT INTO Rang VALUES ('2', 'Copy-Pasteter');\n"
                 + "\n"
@@ -366,7 +297,7 @@ public class DbTools {
         sqlBefehle += exportTestsTabelle(con) + "\n";
         sqlBefehle += exportTestparamTabelle(con) + "\n";
         try {
-            PrintStream out = new PrintStream(new FileOutputStream("javaacademydbbackup.sql"));
+            PrintStream out = new PrintStream(new FileOutputStream("webapps/JavAcademy/javaacademydbbackup.sql"));
             out.println(sqlBefehle);
             out.close();
         } catch (FileNotFoundException ex) {
@@ -375,7 +306,12 @@ public class DbTools {
         
         return sqlBefehle;
     }
-
+          /**
+     * Exportiert die Aufgabentabelle in einen String. 
+     *
+     * @param con Verbindung zur Datenbank die exportiert werden soll
+     * @return Gibt den Tabelleninahlt als String mit INSERT Befehlen zurück
+     */
     public static String exportAufgTabelle(Connection con) {
         String sql = "SELECT * FROM aufgaben";
         String sqlExp = "";
@@ -398,7 +334,12 @@ public class DbTools {
         }
         return sqlExp;
     }
-
+          /**
+     * Exportiert die Eingabentabelle in einen String. 
+     *
+     * @param con Verbindung zur Datenbank die exportiert werden soll
+     * @return Gibt den Tabelleninahlt als String mit INSERT Befehlen zurück
+     */
     public static String exportEingTabelle(Connection con) {
         String sql = "SELECT * FROM Eingaben";
         String sqlExp = "";
@@ -417,7 +358,12 @@ public class DbTools {
         }
         return sqlExp;
     }
-
+          /**
+     * Exportiert die Methodenparametertabelle in einen String. 
+     *
+     * @param con Verbindung zur Datenbank die exportiert werden soll
+     * @return Gibt den Tabelleninahlt als String mit INSERT Befehlen zurück
+     */
     public static String exportMethodenparamTabelle(Connection con) {
         String sql = "SELECT * FROM Methodenparameter";
         String sqlExp = "";
@@ -435,7 +381,12 @@ public class DbTools {
         }
         return sqlExp;
     }
-
+          /**
+     * Exportiert die Testparametertabelle in einen String. 
+     *
+     * @param con Verbindung zur Datenbank die exportiert werden soll
+     * @return Gibt den Tabelleninahlt als String mit INSERT Befehlen zurück
+     */
     public static String exportTestparamTabelle(Connection con) {
         String sql = "SELECT * FROM Testparam";
         String sqlExp = "";
@@ -455,7 +406,12 @@ public class DbTools {
         }
         return sqlExp;
     }
-
+          /**
+     * Exportiert die Teststabelle in einen String. 
+     *
+     * @param con Verbindung zur Datenbank die exportiert werden soll
+     * @return Gibt den Tabelleninahlt als String mit INSERT Befehlen zurück
+     */
     public static String exportTestsTabelle(Connection con) {
         String sql = "SELECT * FROM Tests";
         String sqlExp = "";
@@ -474,7 +430,12 @@ public class DbTools {
         }
         return sqlExp;
     }
-
+          /**
+     * Exportiert die Usertabelle in einen String. 
+     *
+     * @param con Verbindung zur Datenbank die exportiert werden soll
+     * @return Gibt den Tabelleninahlt als String mit INSERT Befehlen zurück
+     */
     public static String exportUserTabelle(Connection con) {
         String sql = "SELECT * FROM user";
         String sqlExp = "";
@@ -494,7 +455,12 @@ public class DbTools {
         }
         return sqlExp;
     }
-
+          /**
+     * Exportiert die Userleveltabelle in einen String. 
+     *
+     * @param con Verbindung zur Datenbank die exportiert werden soll
+     * @return Gibt den Tabelleninahlt als String mit INSERT Befehlen zurück
+     */
     public static String exportUserlevelTabelle(Connection con) {
         String sql = "SELECT * FROM userlevel";
         String sqlExp = "";

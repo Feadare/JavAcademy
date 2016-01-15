@@ -24,7 +24,7 @@
         </script>
     </head>
     <%
-        int kategorieID = 3;
+        int kategorieID = 1;
         Connection con = DbTools.connect();
         Statement stmt = con.createStatement();
 
@@ -32,7 +32,7 @@
         ArrayList aufgabenIDliste = InBetween.aufgabenIDliste(kategorieID, stmt);
         String aufgabenuebersicht = "";
         aufgabenuebersicht += InBetween.aufgabenlisteHead();
-        aufgabenuebersicht += InBetween.aufgabelisteAusgabe(aufgabenliste, aufgabenIDliste,stmt);
+        aufgabenuebersicht += InBetween.aufgabelisteAusgabe(aufgabenliste, aufgabenIDliste, stmt);
         aufgabenuebersicht += InBetween.aufgabenlisteFoot();
     %>
     <body>
@@ -40,8 +40,8 @@
             <div class="col-md-4">
 
             </div>
-            <div id="hilfe" class="col-md-4">
-            <%=aufgabenuebersicht%>
+            <div id="hilfe" class="col-md-5">
+                <%=aufgabenuebersicht%>
         </div>
 
         <div class="col-md-4">

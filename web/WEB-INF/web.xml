@@ -24,6 +24,14 @@
         <servlet-name>DoInsertAufgabe</servlet-name>
         <servlet-class>servlet.DoInsertAufgabe</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DoInsertTest</servlet-name>
+        <servlet-class>servlet.DoInsertTest</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoTestCompiler</servlet-name>
+        <servlet-class>servlet.DoTestCompiler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DoCompiler</servlet-name>
         <url-pattern>/DoCompiler.do</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>DoInsertAufgabe</servlet-name>
         <url-pattern>/DoInsertAufgabe.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoInsertTest</servlet-name>
+        <url-pattern>/DoInsertTest.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoTestCompiler</servlet-name>
+        <url-pattern>/DoTestCompiler.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

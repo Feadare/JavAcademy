@@ -1,10 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package servlet;
 
-import compiler.EingabenCompiler;
-import framework.AbgeschlossenerTest;
 import SQL.DbTools;
 import SQL.InBetween;
-import framework.Aufgabe;
+import compiler.EingabenCompiler;
+import framework.AbgeschlossenerTest;
 import framework.Benutzer;
 import framework.Hilfsmethoden;
 import framework.Parameter;
@@ -22,9 +26,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author feadare
+ * @author kiedrowski
  */
-public class DoCompiler extends HttpServlet {
+public class DoTestCompiler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,15 +47,14 @@ public class DoCompiler extends HttpServlet {
             Connection con = DbTools.connect();
             Statement stmt = con.createStatement();
 
-            String sAuf_ID = (String) request.getParameter("a_ID");
-            int aufgabe_id = Integer.parseInt(sAuf_ID);
+            String methodenname = request.getParameter("methodenname");
+            String parameterUebersicht = request.getParameter("parameterUebersicht");
 
-            //--------------------------------------------------------------------------------------------------
-            String aufgabenbeschreibung = InBetween.getAufgabenbeschreibung(stmt, aufgabe_id);
-            String methodenname = InBetween.getMethodennamen(stmt, aufgabe_id);
-            String datentyp = InBetween.getDatentyp(stmt, aufgabe_id);
+            int aufgabenid = InBetween.getAufgabenId(stmt, methodenname);
 
-            ArrayList<Parameter> aufgabenParameter = InBetween.getAufgabenParameter(stmt, aufgabe_id);
+            String datentyp = InBetween.getDatentyp(stmt, aufgabenid);
+
+            ArrayList<Parameter> aufgabenParameter = InBetween.getAufgabenParameter(stmt, aufgabenid);
             String parameterString = "";
             for (Parameter parameter1 : aufgabenParameter) {
                 parameterString += parameter1;
@@ -61,7 +64,7 @@ public class DoCompiler extends HttpServlet {
             parameterString = parameterString.substring(0, parameterString.length() - 2);
 
             String eingabe = request.getParameter("code");
-            ArrayList<AbgeschlossenerTest> testsDoneList = EingabenCompiler.getErgebnis(eingabe, datentyp, methodenname, parameterString, aufgabe_id);
+            ArrayList<AbgeschlossenerTest> testsDoneList = EingabenCompiler.getErgebnis(eingabe, datentyp, methodenname, parameterString, aufgabenid);
             String uErgebnis = "";
             if (testsDoneList.get(0).isNotcompiled()) {
                 uErgebnis = Hilfsmethoden.getDiagnosticsTabelle(testsDoneList.get(0).getDiagnostics());
@@ -76,32 +79,11 @@ public class DoCompiler extends HttpServlet {
                 }
             }
 
-            if (session.getAttribute("username") != null) { //wenn eingeloggt
-
-                String username = (String) session.getAttribute("username");
-                int user_id = Benutzer.getIDbyName(username, con);
-                InBetween.saveCodeDefault(eingabe, user_id, aufgabe_id, stmt);
-                boolean schonGeloest = Aufgabe.getGeloest(stmt, aufgabe_id, user_id);
-
-                if (!schonGeloest) {
-                    InBetween.saveCodeUpdate(eingabe, user_id, aufgabe_id, stmt, alleErfolgreich);
-                    int u_ID = Benutzer.getIDbyName(username, con);
-                    int exp = Benutzer.getUserExp(stmt, u_ID);
-                    String progress = Hilfsmethoden.progressbar(exp);
-                    session.setAttribute("exp", exp);
-                    session.setAttribute("level", Benutzer.getUserLevel(stmt, u_ID));
-                    session.setAttribute("progress", progress);
-                }
-            }
-
-            request.setAttribute(datentyp, datentyp);
-
-            request.setAttribute("code", eingabe);
+            request.setAttribute("methodennamen", methodenname);
+            request.setAttribute("parameterUebersicht", parameterUebersicht);
             request.setAttribute("uErgebnis", uErgebnis);
-            request.setAttribute("aufgabenbeschreibung", aufgabenbeschreibung);
-            request.setAttribute("id", aufgabe_id);
 
-            RequestDispatcher rd = request.getRequestDispatcher("aufgabenVorlage.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("neuerTest.jsp");
             rd.forward(request, response);
 
         } catch (SQLException ex) {
@@ -121,9 +103,7 @@ public class DoCompiler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
-
     }
 
     /**
@@ -137,9 +117,7 @@ public class DoCompiler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
-
     }
 
     /**

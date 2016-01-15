@@ -24,7 +24,7 @@
         </script>
     </head>
     <%
-        int kategorieID = 2;
+        int kategorieID = 7;
         Connection con = DbTools.connect();
         Statement stmt = con.createStatement();
 
@@ -40,7 +40,7 @@
             <div class="col-md-4">
 
             </div>
-            <div id="hilfe" class="col-md-4">
+            <div id="hilfe" class="col-md-5">
             <%=aufgabenuebersicht%>
         </div>
 
