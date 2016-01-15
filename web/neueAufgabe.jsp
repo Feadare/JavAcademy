@@ -33,7 +33,8 @@
                     +"Arrays in folgender Form [1, 2, 3] <br>"
                     +"Zweidimensionale Arrays in folgender Form [[1, 2, 3],[4, 5 ,6]] <br>"
                     + "Doubles mit . trennen -> 12.3 <br>"
-                    + "Booleans nur mit true oder false <br>";
+                    + "Booleans nur mit true oder false <br>"
+                    + "Keine Hochkommata verwenden!<br>";
         }
 
     %>
